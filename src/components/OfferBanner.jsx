@@ -87,7 +87,7 @@ export default function OfferBanner() {
                 
                 <h2 className="mt-4 text-4xl sm:text-5xl md:text-6xl font-black uppercase leading-none tracking-tight text-secondary">
                   RUN FASTER.<br />
-                  <span className="text-accent drop-shadow-[0_0_15px_rgba(124,255,91,0.25)]">SAVE BIGGER.</span>
+                  <span className="text-accent drop-shadow-[0_0_15px_rgba(210,253,9,0.25)]">SAVE BIGGER.</span>
                 </h2>
                 
                 <p className="mt-6 max-w-md text-xs sm:text-sm font-light leading-relaxed text-grayMuted">
@@ -129,7 +129,7 @@ export default function OfferBanner() {
 
                   {/* Seconds (Highlighted in brand color to emphasize ticking) */}
                   <div className="flex flex-col items-center">
-                    <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#090909] font-mono text-2xl font-black text-accent border border-accent/20 shadow-[0_0_15px_rgba(124,255,91,0.05)]">
+                    <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#090909] font-mono text-2xl font-black text-accent border border-accent/20 shadow-[0_0_15px_rgba(210,253,9,0.05)]">
                       {String(timeLeft.seconds).padStart(2, '0')}
                     </div>
                     <span className="mt-2 text-[8px] font-black tracking-widest text-grayMuted uppercase font-mono">SEC</span>
@@ -193,7 +193,7 @@ export default function OfferBanner() {
           </span>
           <h2 className="text-4xl font-black uppercase leading-none tracking-tight sm:text-6xl lg:text-7xl text-secondary select-none">
             YOUR NEXT RUN<br />
-            STARTS <span className="text-accent drop-shadow-[0_0_15px_rgba(124,255,91,0.25)]">TODAY.</span>
+            STARTS <span className="text-accent drop-shadow-[0_0_15px_rgba(210,253,9,0.25)]">TODAY.</span>
           </h2>
           <p className="mt-6 max-w-md text-xs sm:text-sm font-light leading-relaxed text-grayMuted">
             Don't run behind change. Lead it. Engineered to adapt to your running style and push your limits beyond.

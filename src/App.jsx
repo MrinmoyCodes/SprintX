@@ -14,6 +14,9 @@ import CheckoutPage from './components/CheckoutPage';
 import Footer from './components/Footer';
 import ThankYouPage from './components/ThankYouPage';
 import ProductListing from './components/ProductListing';
+import BrandInfo from './components/BrandInfo';
+import ServicesGrid from './components/ServicesGrid';
+import CategoriesShowcase from './components/CategoriesShowcase';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -301,8 +304,11 @@ export default function App() {
         <OfferMarquee />
         <FeatureStory />
         <OfferBanner />
+        <CategoriesShowcase onOpenListing={() => navigateTo('listing')} />
         <ProductShowcase onProductSelect={handleProductSelect} />
         <BestSellers onProductSelect={handleProductSelect} />
+        <BrandInfo />
+        <ServicesGrid />
         <FooterAndFaq />
       </div>
 

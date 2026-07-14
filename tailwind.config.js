@@ -9,17 +9,17 @@ export default {
       colors: {
         primary: "#050505",
         secondary: "#FFFFFF",
-        accent: "#7CFF5B",
+        accent: "#d2fd09",
         bgDark: "#0B0B0B",
-        grayMuted: "#999999",
+        grayMuted: "#CCCCCC",
       },
       fontFamily: {
         heading: ["Bebas Neue", "sans-serif"],
         body: ["Inter", "sans-serif"],
       },
       boxShadow: {
-        'glow': '0 0 15px rgba(124, 255, 91, 0.3)',
-        'glow-strong': '0 0 25px rgba(124, 255, 91, 0.5)',
+        'glow': '0 0 15px rgba(210, 253, 9, 0.3)',
+        'glow-strong': '0 0 25px rgba(210, 253, 9, 0.5)',
       }
     },
   },

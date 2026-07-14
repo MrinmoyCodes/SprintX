@@ -52,12 +52,12 @@ export default function ProductShowcase({ onProductSelect }) {
         { label: 'PLATE TECH', value: 'S-Curve Carbon' }
       ],
       colors: [
-        { name: 'Neon Green', hex: '#7CFF5B', filterClass: 'hue-rotate-0' },
+        { name: 'Volt Green', hex: '#d2fd09', filterClass: 'hue-rotate-0' },
         { name: 'Electric Cyan', hex: '#00F0FF', filterClass: 'hue-rotate-[110deg] saturate-[1.6]' },
         { name: 'Volt Yellow', hex: '#DFFF00', filterClass: 'hue-rotate-[45deg] saturate-[1.8]' }
       ],
       activeColorIdx: 0,
-      baseBg: 'rgba(124, 255, 91, 0.06)'
+      baseBg: 'rgba(210, 253, 9, 0.06)'
     },
     {
       id: 'aero',

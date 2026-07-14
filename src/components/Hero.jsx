@@ -280,7 +280,7 @@ export default function Hero({ onProductSelect }) {
               <path 
                 ref={line1Ref} 
                 d="M 100,45 L 154,133" 
-                stroke={activeFeature === 'upper' ? '#7CFF5B' : 'rgba(124,255,91,0.5)'} 
+                stroke={activeFeature === 'upper' ? '#d2fd09' : 'rgba(210,253,9,0.5)'} 
                 strokeWidth={activeFeature === 'upper' ? 2 : 1} 
                 fill="none" 
                 className="transition-all duration-300"
@@ -289,7 +289,7 @@ export default function Hero({ onProductSelect }) {
               <path 
                 ref={line2Ref} 
                 d="M 100,240 L 243,178" 
-                stroke={activeFeature === 'carbon' ? '#7CFF5B' : 'rgba(124,255,91,0.5)'} 
+                stroke={activeFeature === 'carbon' ? '#d2fd09' : 'rgba(210,253,9,0.5)'} 
                 strokeWidth={activeFeature === 'carbon' ? 2 : 1} 
                 fill="none"
                 className="transition-all duration-300"
@@ -298,7 +298,7 @@ export default function Hero({ onProductSelect }) {
               <path 
                 ref={line3Ref} 
                 d="M 360,45 L 342,142" 
-                stroke={activeFeature === 'midsole' ? '#7CFF5B' : 'rgba(124,255,91,0.5)'} 
+                stroke={activeFeature === 'midsole' ? '#d2fd09' : 'rgba(210,253,9,0.5)'} 
                 strokeWidth={activeFeature === 'midsole' ? 2 : 1} 
                 fill="none"
                 className="transition-all duration-300"
@@ -307,7 +307,7 @@ export default function Hero({ onProductSelect }) {
               <path 
                 ref={line4Ref} 
                 d="M 360,240 L 237,240" 
-                stroke={activeFeature === 'outsole' ? '#7CFF5B' : 'rgba(124,255,91,0.5)'} 
+                stroke={activeFeature === 'outsole' ? '#d2fd09' : 'rgba(210,253,9,0.5)'} 
                 strokeWidth={activeFeature === 'outsole' ? 2 : 1} 
                 fill="none"
                 className="transition-all duration-300"
@@ -402,7 +402,7 @@ export default function Hero({ onProductSelect }) {
             <div className="overflow-hidden mb-4">
               <span 
                 ref={title2Ref} 
-                className="block text-accent drop-shadow-[0_0_15px_rgba(124,255,91,0.25)] text-center lg:text-left"
+                className="block text-[#d2fd09] drop-shadow-[0_0_15px_rgba(210,253,9,0.25)] text-center lg:text-left"
               >
                 POWER UNLEASHED.
               </span>

@@ -246,7 +246,7 @@ export default function FeatureStory() {
         className="absolute inset-0 -z-10 transition-colors duration-700 pointer-events-none"
         style={{
           background: `radial-gradient(circle at 50% 50%, ${
-            activeIndex === 3 ? 'rgba(255, 255, 255, 0.05)' : 'rgba(124, 255, 91, 0.07)'
+            activeIndex === 3 ? 'rgba(255, 255, 255, 0.05)' : 'rgba(210, 253, 9, 0.07)'
           } 0%, rgba(5,5,5,0) 65%)`
         }}
       />
@@ -309,8 +309,8 @@ export default function FeatureStory() {
             activeIndex === 0 ? 'opacity-100' : 'opacity-0'
           }`}>
             <svg className="absolute inset-0 w-full h-full" viewBox="0 0 340 340" fill="none">
-              <path d="M 60,110 C 100,80 180,90 210,120" stroke="#7CFF5B" strokeWidth="1" strokeDasharray="4,4" className="animate-dash" />
-              <path d="M 50,130 C 90,100 170,110 200,140" stroke="#7CFF5B" strokeWidth="0.8" strokeDasharray="3,3" className="animate-dash" style={{ animationDuration: '1.5s' }} />
+              <path d="M 60,110 C 100,80 180,90 210,120" stroke="#d2fd09" strokeWidth="1" strokeDasharray="4,4" className="animate-dash" />
+              <path d="M 50,130 C 90,100 170,110 200,140" stroke="#d2fd09" strokeWidth="0.8" strokeDasharray="3,3" className="animate-dash" style={{ animationDuration: '1.5s' }} />
             </svg>
           </div>
 
@@ -320,7 +320,7 @@ export default function FeatureStory() {
           }`}>
             {[1, 2, 3].map((i) => (
               <div key={i} className="flex flex-col items-center animate-bounce" style={{ animationDelay: `${i * 0.15}s` }}>
-                <svg className="w-3 h-3 text-accent drop-shadow-[0_0_5px_#7CFF5B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                <svg className="w-3 h-3 text-accent drop-shadow-[0_0_5px_#d2fd09]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                   <path d="M18 15l-6-6-6 6" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
@@ -336,7 +336,7 @@ export default function FeatureStory() {
             <img 
               src="/assets/sprintx_alpha_main.png" 
               alt="Energy Return Highlight" 
-              className="h-full w-full object-contain filter brightness-150 saturate-150 drop-shadow-[0_0_12px_#7CFF5B]"
+              className="h-full w-full object-contain filter brightness-150 saturate-150 drop-shadow-[0_0_12px_#d2fd09]"
             />
           </div>
 
@@ -384,7 +384,7 @@ export default function FeatureStory() {
                 key={idx}
                 ref={lineRefs[idx]}
                 d={d} 
-                stroke={isActive ? '#7CFF5B' : isRevealed ? 'rgba(255,255,255,0.25)' : 'transparent'} 
+                stroke={isActive ? '#d2fd09' : isRevealed ? 'rgba(255,255,255,0.25)' : 'transparent'} 
                 strokeWidth={isActive ? 2 : 1} 
                 fill="none" 
                 className="transition-all duration-300"

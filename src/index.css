@@ -8,10 +8,18 @@
   body {
     @apply bg-bgDark text-secondary font-body overflow-x-hidden selection:bg-accent selection:text-primary;
     background-color: #0B0B0B;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
   
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading tracking-wider;
+  }
+
+  /* Override thin font-light utility to 400 weight for optimal readability on dark mode */
+  .font-light {
+    font-weight: 400 !important;
   }
 }
 
@@ -27,7 +35,7 @@
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #7CFF5B;
+  background: #d2fd09;
 }
 
 /* SVG Grain Noise Overlay */
@@ -44,22 +52,22 @@
 
 /* Custom Premium Utilities */
 .text-neon {
-  color: #7CFF5B;
-  text-shadow: 0 0 10px rgba(124, 255, 91, 0.4);
+  color: #d2fd09;
+  text-shadow: 0 0 10px rgba(210, 253, 9, 0.4);
 }
 
 .bg-neon-glow {
-  box-shadow: 0 0 20px rgba(124, 255, 91, 0.3);
+  box-shadow: 0 0 20px rgba(210, 253, 9, 0.3);
 }
 
 .border-neon-glow {
-  border-color: rgba(124, 255, 91, 0.3);
-  box-shadow: 0 0 10px rgba(124, 255, 91, 0.15);
+  border-color: rgba(210, 253, 9, 0.3);
+  box-shadow: 0 0 10px rgba(210, 253, 9, 0.15);
 }
 
 .border-neon-glow:hover {
-  border-color: rgba(124, 255, 91, 0.8);
-  box-shadow: 0 0 20px rgba(124, 255, 91, 0.4);
+  border-color: rgba(210, 253, 9, 0.8);
+  box-shadow: 0 0 20px rgba(210, 253, 9, 0.4);
 }
 
 /* Lenis Smooth Scroll Configuration */
@@ -110,6 +118,24 @@ html.lenis, html.lenis body {
 }
 .animate-marquee:hover {
   animation-play-state: paused;
+}
+.bg-accent{
+  background-color: #d2fd09;
+}
+.text-accent{
+  color: #d2fd09;
+}
+.border-accent{
+  border-color: #d2fd09;
+}
+.border-accent\/30{
+  border-color: rgba(210, 253, 9, 0.3);
+}
+.hover\:text-accent:hover{
+  color: #d2fd09 !important;
+}
+.hover\:bg-accent:hover{
+  background-color: #d2fd09 !important;
 }
 @media(max-width:1024px){
   .hero-text{

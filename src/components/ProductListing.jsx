@@ -14,7 +14,7 @@ const allProducts = [
     category: 'Speed',
     desc: 'Responsive active carbon propulsion plate with 3D knitted breathable mesh and reactive nitrogen-infused cushioning.',
     colors: [
-      { name: 'Neon Green', hex: '#7CFF5B', filterClass: 'hue-rotate-0' },
+      { name: 'Volt Green', hex: '#d2fd09', filterClass: 'hue-rotate-0' },
       { name: 'Electric Cyan', hex: '#00F0FF', filterClass: 'hue-rotate-[110deg] saturate-[1.6]' },
       { name: 'Volt Yellow', hex: '#DFFF00', filterClass: 'hue-rotate-[45deg] saturate-[1.8]' }
     ],
@@ -46,7 +46,7 @@ const allProducts = [
     category: 'Cushion',
     desc: 'Thick nitrogen foam cushioning with dual-compound outsole for maximum surface grip.',
     colors: [
-      { name: 'Neon Green', hex: '#7CFF5B', filterClass: 'hue-rotate-0' },
+      { name: 'Volt Green', hex: '#d2fd09', filterClass: 'hue-rotate-0' },
       { name: 'Volt Yellow', hex: '#DFFF00', filterClass: 'hue-rotate-[45deg] saturate-[1.8]' }
     ],
     weight: '235g',
@@ -106,7 +106,7 @@ const allProducts = [
     category: 'Trail',
     desc: 'Water-resistant woven knit upper with deep lug traction channels for wet weather stability.',
     colors: [
-      { name: 'Neon Green', hex: '#7CFF5B', filterClass: 'hue-rotate-[40deg] brightness-[0.8] contrast-[1.4]' },
+      { name: 'Volt Green', hex: '#d2fd09', filterClass: 'hue-rotate-[40deg] brightness-[0.8] contrast-[1.4]' },
       { name: 'Electric Blue', hex: '#0066FF', filterClass: 'hue-rotate-[150deg]' }
     ],
     weight: '230g',

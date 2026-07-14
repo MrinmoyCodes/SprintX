@@ -12,7 +12,7 @@ const productsData = {
     tag: 'SPEED & PROPULSION',
     desc: 'Introducing the SprintX Alpha. Engineered with a responsive active carbon propulsion plate, 3D knitted breathable mesh, and reactive nitrogen-infused cushioning. Built for runners who demand velocity.',
     colors: [
-      { name: 'Neon Green', hex: '#7CFF5B', filterClass: 'hue-rotate-0' },
+      { name: 'Volt Green', hex: '#d2fd09', filterClass: 'hue-rotate-0' },
       { name: 'Electric Cyan', hex: '#00F0FF', filterClass: 'hue-rotate-[110deg] saturate-[1.6]' },
       { name: 'Volt Yellow', hex: '#DFFF00', filterClass: 'hue-rotate-[45deg] saturate-[1.8]' }
     ],
@@ -52,7 +52,7 @@ const productsData = {
     tag: 'MAX COMFORT & GRIP',
     desc: 'Designed for stability and endurance. The SprintX Vector features a thick protective nitrogen foam cushioning system that absorbs high impacts, paired with a dual-compound outsole for maximum surface grip.',
     colors: [
-      { name: 'Neon Green', hex: '#7CFF5B', filterClass: 'hue-rotate-0' },
+      { name: 'Volt Green', hex: '#d2fd09', filterClass: 'hue-rotate-0' },
       { name: 'Volt Yellow', hex: '#DFFF00', filterClass: 'hue-rotate-[45deg] saturate-[1.8]' }
     ],
     specs: [
@@ -128,7 +128,7 @@ const productsData = {
     tag: 'ALL-WEATHER SHIELD',
     desc: 'All-weather water resistant woven knit upper that repels rain and dew without trapping moisture. Features deep lug traction channels to ensure stability on slippery streets.',
     colors: [
-      { name: 'Neon Green', hex: '#7CFF5B', filterClass: 'hue-rotate-[40deg] brightness-[0.8] contrast-[1.4]' },
+      { name: 'Volt Green', hex: '#d2fd09', filterClass: 'hue-rotate-[40deg] brightness-[0.8] contrast-[1.4]' },
       { name: 'Electric Blue', hex: '#0066FF', filterClass: 'hue-rotate-[150deg]' }
     ],
     specs: [
