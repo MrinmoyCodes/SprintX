@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Hero() {
+export default function Hero({ onProductSelect }) {
   const containerRef = useRef(null);
   const title1Ref = useRef(null);
   const title2Ref = useRef(null);
@@ -154,6 +154,7 @@ export default function Hero() {
 
       // Scroll-triggered telemetry number counters
       const animateStat = (ref, target) => {
+        if (!ref.current) return;
         scrollTl.fromTo(ref.current, 
           { textContent: 0 },
           { 
@@ -189,74 +190,13 @@ export default function Hero() {
       id="hero"
     >
       {/* Background Neon Gradients */}
-      <div className="absolute top-1/4 right-1/4 -z-10 h-[500px] w-[500px] rounded-full bg-accent/5 blur-[180px]" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-[500px] w-[500px] rounded-full bg-accent/5 blur-[180px]" />
       <div className="absolute bottom-10 left-10 -z-10 h-[300px] w-[300px] rounded-full bg-white/5 blur-[120px]" />
 
-      <div className="mx-auto grid w-full max-w-7xl px-6 md:px-8 grid-cols-1 md:grid-cols-12 items-center gap-12 py-12">
+      <div className="mx-auto grid w-full max-w-7xl px-6 md:px-8 grid-cols-1 lg:grid-cols-12 items-center gap-12 py-6 relative z-20">
         
-        {/* Left: Campaign Copy & Telemetry Readout */}
-        <div className="z-10 md:col-span-6 text-left flex flex-col justify-center">
-          <div className="overflow-hidden mb-1">
-            <h1 
-              ref={title1Ref} 
-              className="text-6xl font-black uppercase leading-none tracking-tight sm:text-7xl lg:text-8xl text-secondary"
-            >
-              SPEED REFINED.
-            </h1>
-          </div>
-          <div className="overflow-hidden mb-6">
-            <h1 
-              ref={title2Ref} 
-              className="text-6xl font-black uppercase leading-none tracking-tight sm:text-7xl lg:text-8xl text-accent"
-            >
-              POWER UNLEASHED.
-            </h1>
-          </div>
-          
-          <p 
-            ref={descRef} 
-            className="max-w-md text-sm leading-relaxed text-grayMuted sm:text-base mb-8 font-light"
-          >
-            Introducing the <span className="text-secondary font-semibold">SprintX Alpha</span>. 
-            Engineered with a responsive active carbon propulsion plate, 3D knitted breathable shield mesh, 
-            and reactive nitrogen-infused cushioning. Built for runners who demand velocity.
-          </p>
-
-          <div ref={ctaRef} className="flex flex-col sm:flex-row items-start sm:items-center gap-8">
-            <a
-              href="#bestsellers"
-              className="group relative inline-flex items-center gap-3 rounded-full bg-accent px-8 py-4 text-xs font-bold uppercase tracking-wider text-primary shadow-glow transition-all duration-300 hover:bg-secondary hover:text-primary hover:shadow-glow-strong"
-            >
-              Pre-Order Now
-              <FiArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </a>
-
-            {/* Micro Telemetry Panel */}
-            <div className="flex gap-6 border-l border-white/10 pl-6">
-              <div>
-                <div className="font-heading text-lg text-secondary flex items-baseline">
-                  <span ref={stat1ValRef}>0</span><span className="text-accent text-xs ml-0.5">g</span>
-                </div>
-                <span className="text-[9px] font-bold text-grayMuted uppercase tracking-wider">Weight</span>
-              </div>
-              <div>
-                <div className="font-heading text-lg text-secondary flex items-baseline">
-                  <span ref={stat2ValRef}>0</span><span className="text-accent text-xs ml-0.5">%</span>
-                </div>
-                <span className="text-[9px] font-bold text-grayMuted uppercase tracking-wider">Energy Return</span>
-              </div>
-              <div>
-                <div className="font-heading text-lg text-secondary flex items-baseline">
-                  <span ref={stat3ValRef}>0</span><span className="text-accent text-xs ml-0.5">N</span>
-                </div>
-                <span className="text-[9px] font-bold text-grayMuted uppercase tracking-wider">Propulsion</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Right: Exploding Product Visualizer & HUD Overlay */}
-        <div className="relative md:col-span-6 flex h-[400px] md:h-[600px] w-full items-center justify-center">
+        {/* Top: Exploding Product Visualizer & HUD Overlay */}
+        <div className="relative lg:col-span-6 lg:order-2 flex h-[320px] md:h-[500px] w-full items-center justify-center scale-[0.72] sm:scale-[0.85] lg:scale-[0.82] xl:scale-100 origin-center transition-transform duration-500 z-10">
           
           {/* Rotating Vector HUD Circle behind shoe */}
           <svg 
@@ -446,6 +386,49 @@ export default function Hero() {
 
           </div>
 
+        </div>
+
+        {/* Bottom: Campaign Copy & Telemetry Readout */}
+        <div className="z-10 lg:col-span-6 lg:order-1 text-center lg:text-left flex flex-col items-center lg:items-start justify-center max-w-3xl px-6 md:px-8 mt-4 lg:mt-0">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black uppercase leading-none tracking-tight">
+            <div className="overflow-hidden mb-1">
+              <span 
+                ref={title1Ref} 
+                className="block text-secondary text-center lg:text-left"
+              >
+                SPEED REFINED.
+              </span>
+            </div>
+            <div className="overflow-hidden mb-4">
+              <span 
+                ref={title2Ref} 
+                className="block text-accent drop-shadow-[0_0_15px_rgba(124,255,91,0.25)] text-center lg:text-left"
+              >
+                POWER UNLEASHED.
+              </span>
+            </div>
+          </h1>
+          
+          <p 
+            ref={descRef} 
+            className="max-w-2xl lg:max-w-md text-xs sm:text-sm leading-relaxed text-grayMuted mb-8 font-light mx-auto lg:mx-0 text-center lg:text-left"
+          >
+            Introducing the <span className="text-secondary font-semibold">SprintX Alpha</span>. 
+            Engineered with a responsive active carbon propulsion plate, 3D knitted breathable mesh, 
+            and reactive nitrogen-infused cushioning. Built for runners who demand velocity.
+          </p>
+
+          <div ref={ctaRef} className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-8 w-full max-w-xl">
+            <button
+              onClick={() => {
+                if (onProductSelect) onProductSelect('alpha');
+              }}
+              className="group relative inline-flex items-center justify-center gap-3 rounded-full bg-accent px-8 py-4 text-xs font-bold uppercase tracking-wider text-primary shadow-glow transition-all duration-300 hover:bg-secondary hover:text-primary hover:shadow-glow-strong w-fit"
+            >
+              Pre-Order Now
+              <FiArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </button>
+          </div>
         </div>
 
       </div>

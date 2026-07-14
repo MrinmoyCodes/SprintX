@@ -111,4 +111,54 @@ html.lenis, html.lenis body {
 .animate-marquee:hover {
   animation-play-state: paused;
 }
+@media(max-width:1024px){
+  .hero-text{
+    font-size:4rem !important;
+  }
+  .offer-texts{
+    padding-left:40px !important;
+    padding-right:40px !important;
+  }
+  .trust-bar .grid{
+    display:flex;
+    flex-wrap:wrap;
+    gap:30px;
+    justify-content:center;
+  }
+    .trust-bar .grid>.flex{
+      width:calc(100% / 3 - 20px);
+    }
+}
+@media(max-width:999px){
+  #features{
+    padding-bottom:0;
+  }
+}
+@media(max-width:575px){
+  .trust-bar .grid>.flex{
+    width:100%;
+  }
+  .mobile-reverse{
+    display:flex;
+    flex-wrap:wrap;
+    flex-direction:column-reverse;
+  }
+  .offer-texts{
+    padding:25px !important;
+  }
+  .overcome-limits{
+    padding:40px 0 !important;
+  }
+  .section-heading{
+    margin-bottom:0px !important;
+  }
+  .view-all-cta{
+    margin-top:0 !important;
+  }
+  #bestsellers{
+    padding-bottom:0;
+    padding-top:40px;
+  }
+}
+
 

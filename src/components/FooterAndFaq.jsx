@@ -3,6 +3,7 @@ import { FiChevronDown, FiMail, FiInstagram, FiTwitter, FiYoutube, FiStar } from
 import { motion, AnimatePresence } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Footer from './Footer';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -146,45 +147,102 @@ export default function FooterAndFaq() {
       </section>
 
       {/* Loop 11 — About Us Section (Timeline + Counters) */}
-      <section className="relative z-10 w-full bg-[#080808] py-24 border-b border-white/5" id="about">
+      <section className="relative z-10 w-full bg-[#080808] py-24 md:py-32 border-b border-white/5" id="about">
         <div className="mx-auto max-w-7xl px-6 md:px-8">
           
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
             
-            {/* Left Column: Mission Story */}
-            <div className="md:col-span-6">
-              <span className="text-[10px] font-black tracking-widest text-accent uppercase">
-                OUR MISSION
+            {/* Left Column: Mission Story with Floating Biomechanics Midsole */}
+            <div className="md:col-span-5 relative">
+              {/* Subtle background radial glow */}
+              <div className="absolute -top-10 -left-10 h-72 w-72 rounded-full bg-accent/5 blur-3xl pointer-events-none" />
+              
+              <span className="text-[10px] font-black tracking-widest text-accent uppercase font-mono block">
+                // SCIENTIFIC LAB ROOTS
               </span>
-              <h2 className="mt-4 text-5xl font-black uppercase leading-none tracking-tight sm:text-6xl text-secondary">
+              <h2 className="mt-4 text-4xl sm:text-5xl md:text-6xl font-black uppercase leading-none tracking-tight text-secondary">
                 ENGINEERED FOR<br />
-                <span className="text-accent">PURE MOMENTUM.</span>
+                <span className="text-accent drop-shadow-[0_0_15px_rgba(124,255,91,0.25)]">PURE MOMENTUM.</span>
               </h2>
               <p className="mt-6 text-sm font-light leading-relaxed text-grayMuted">
                 SprintX started in a high-tech sports biomechanics lab with a simple question: How can we eliminate 
                 energy loss in the transition phase of a stride? 
               </p>
-              <p className="mt-4 text-sm font-light leading-relaxed text-grayMuted">
+              <p className="mt-4 text-sm font-light leading-relaxed text-grayMuted mb-8 md:mb-12">
                 By fusing aerospace-grade carbon fiber structures with nitrogen gas infusions, we created footwear that 
                 doesn’t just cushion impact—it converts it into active forward speed.
               </p>
+
+              {/* Glowing shoe preview card */}
+              <div className="relative h-44 w-full rounded-2xl border border-white/5 bg-[#090909]/60 backdrop-blur-xl p-4 overflow-hidden flex items-center justify-center group/midsole select-none">
+                <div className="absolute inset-0 bg-radial-gradient from-accent/10 to-transparent blur-xl opacity-70 group-hover/midsole:opacity-100 transition-opacity duration-500" />
+                <img
+                  src="/assets/sprintx_alpha_main_clean.png"
+                  alt="SprintX Alpha design schematic"
+                  className="h-full w-auto object-contain transform transition-all duration-700 ease-out group-hover/midsole:scale-110 group-hover/midsole:-rotate-3"
+                />
+                <span className="absolute bottom-3 left-4 text-[7px] font-black tracking-widest text-white/30 font-mono uppercase">
+                  SPRINTX ALPHA ELITE PROTOTYPE SCHEMATIC // v1.0
+                </span>
+              </div>
             </div>
 
-            {/* Right Column: Key Stats Counters */}
-            <div className="md:col-span-6 grid grid-cols-1 gap-6 sm:grid-cols-3">
+            {/* Right Column: Key Stats Counters in Asymmetrical Tech Grid */}
+            <div className="md:col-span-7 grid grid-cols-1 gap-6 sm:grid-cols-2">
               {[
-                { ref: c1Ref, target: 100, label: 'Customers', suffix: 'K+' },
-                { ref: c2Ref, target: 40, label: 'Countries', suffix: '+' },
-                { ref: c3Ref, target: 500, label: 'Retail Stores', suffix: '+' },
+                { 
+                  ref: c1Ref, 
+                  target: 100, 
+                  label: 'Customers Active', 
+                  suffix: 'K+', 
+                  desc: 'Athletes and running enthusiasts crushing their daily limits globally.',
+                  span: 'sm:col-span-2',
+                  tag: 'PROPULSION NETWORK'
+                },
+                { 
+                  ref: c2Ref, 
+                  target: 40, 
+                  label: 'Countries Reached', 
+                  suffix: '+', 
+                  desc: 'International shipping hubs.',
+                  span: 'sm:col-span-1',
+                  tag: 'GLOBAL REACH'
+                },
+                { 
+                  ref: c3Ref, 
+                  target: 500, 
+                  label: 'Retail Partners', 
+                  suffix: '+', 
+                  desc: 'Authorized store locations.',
+                  span: 'sm:col-span-1',
+                  tag: 'RETAIL CENTERS'
+                },
               ].map((stat, idx) => (
-                <div key={idx} className="flex flex-col items-center justify-center rounded-2xl border border-white/5 bg-primary/45 p-6 text-center shadow-lg">
-                  <div className="flex font-heading text-4xl font-black text-secondary">
-                    <span ref={stat.ref}>0</span>
-                    <span className="text-accent">{stat.suffix}</span>
+                <div 
+                  key={idx} 
+                  className={`group/stat relative flex flex-col justify-between rounded-3xl border border-white/5 bg-[#090909]/40 backdrop-blur-xl p-8 transition-all duration-500 hover:border-accent/30 hover:bg-accent/[0.005] hover:shadow-[0_15px_35px_rgba(124,255,91,0.05)] ${stat.span}`}
+                >
+                  {/* Glowing hover dot inside the box */}
+                  <div className="absolute top-6 right-6 h-1.5 w-1.5 rounded-full bg-white/10 group-hover/stat:bg-accent group-hover/stat:animate-ping transition-colors duration-300" />
+                  
+                  <div>
+                    <span className="text-[7.5px] font-black tracking-widest text-white/30 font-mono uppercase block mb-4">
+                      // {stat.tag}
+                    </span>
+                    <div className="flex items-baseline font-heading text-5xl font-black text-secondary leading-none tracking-tight">
+                      <span ref={stat.ref} className="font-mono">0</span>
+                      <span className="text-accent drop-shadow-[0_0_10px_rgba(124,255,91,0.2)]">{stat.suffix}</span>
+                    </div>
                   </div>
-                  <span className="mt-2 text-xs font-semibold uppercase tracking-wider text-grayMuted">
-                    {stat.label}
-                  </span>
+
+                  <div className="mt-6 border-t border-white/5 pt-4">
+                    <h4 className="text-xs font-black uppercase text-secondary tracking-wider">
+                      {stat.label}
+                    </h4>
+                    <p className="mt-2 text-xs font-light leading-relaxed text-grayMuted">
+                      {stat.desc}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -251,97 +309,6 @@ export default function FooterAndFaq() {
 
         </div>
       </section>
-
-      {/* Loop 13 — Footer */}
-      <footer className="relative z-10 w-full bg-[#020202] pt-20 pb-8 text-left border-t border-white/5">
-        <div className="mx-auto max-w-7xl px-6 md:px-8 grid grid-cols-1 md:grid-cols-12 gap-12 pb-16">
-          
-          {/* Logo & Info */}
-          <div className="md:col-span-4 flex flex-col gap-6">
-            <a href="#" className="flex items-center">
-              <img src="/assets/sprintx_logo.png" alt="SprintX" className="h-12 w-auto object-contain" />
-            </a>
-            <p className="max-w-xs text-xs font-light leading-relaxed text-grayMuted">
-              Aerospace-grade performance footwear. Built to stabilize, cushion, and propel runners worldwide.
-            </p>
-            {/* Socials */}
-            <div className="flex gap-4">
-              {[
-                { icon: FiInstagram, href: '#' },
-                { icon: FiTwitter, href: '#' },
-                { icon: FiYoutube, href: '#' }
-              ].map((social, idx) => {
-                const Icon = social.icon;
-                return (
-                  <a
-                    key={idx}
-                    href={social.href}
-                    className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 border border-white/5 text-grayMuted transition-all duration-300 hover:bg-accent hover:text-primary hover:shadow-glow"
-                  >
-                    <Icon className="h-4 w-4" />
-                  </a>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Collections links */}
-          <div className="md:col-span-2 flex flex-col gap-4">
-            <h5 className="text-xs font-black uppercase tracking-widest text-secondary">Collections</h5>
-            <div className="flex flex-col gap-2.5 text-xs font-semibold text-grayMuted">
-              <a href="#showcase" className="hover:text-accent transition-colors">SprintX Alpha</a>
-              <a href="#showcase" className="hover:text-accent transition-colors">SprintX Aero</a>
-              <a href="#showcase" className="hover:text-accent transition-colors">SprintX Vector</a>
-              <a href="#showcase" className="hover:text-accent transition-colors">Limited Drop</a>
-            </div>
-          </div>
-
-          {/* Quick Links */}
-          <div className="md:col-span-2 flex flex-col gap-4">
-            <h5 className="text-xs font-black uppercase tracking-widest text-secondary">Quick Links</h5>
-            <div className="flex flex-col gap-2.5 text-xs font-semibold text-grayMuted">
-              <a href="#features" className="hover:text-accent transition-colors">Technology Specs</a>
-              <a href="#about" className="hover:text-accent transition-colors">Our Mission</a>
-              <a href="#testimonials" className="hover:text-accent transition-colors">User Reviews</a>
-              <a href="#faq" className="hover:text-accent transition-colors">Help Center</a>
-            </div>
-          </div>
-
-          {/* Newsletter Form */}
-          <div className="md:col-span-4 flex flex-col gap-4">
-            <h5 className="text-xs font-black uppercase tracking-widest text-secondary">Newsletter</h5>
-            <p className="text-xs font-light text-grayMuted leading-relaxed">
-              Subscribe to get exclusive first-access to limited shoe drops and performance articles.
-            </p>
-            <form className="relative flex items-center" onSubmit={(e) => e.preventDefault()}>
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="w-full rounded-full border border-white/10 bg-[#090909] px-5 py-3.5 pr-12 text-xs font-light text-secondary outline-none transition-all duration-300 focus:border-accent/60 focus:bg-[#0c0c0c] placeholder:text-grayMuted"
-              />
-              <button
-                type="submit"
-                className="absolute right-2 flex h-9 w-9 items-center justify-center rounded-full bg-accent text-primary transition-all duration-300 hover:bg-secondary"
-              >
-                <FiMail className="h-4 w-4" />
-              </button>
-            </form>
-          </div>
-
-        </div>
-
-        {/* Bottom copyright bar */}
-        <div className="mx-auto max-w-7xl px-6 md:px-8 border-t border-white/5 pt-8 flex flex-col md:flex-row md:justify-between items-center gap-4 text-center">
-          <p className="text-[10px] text-grayMuted font-light">
-            © {new Date().getFullYear()} SPRINTX PERFORMANCE INC. ALL RIGHTS RESERVED.
-          </p>
-          <div className="flex gap-6 text-[10px] text-grayMuted font-semibold uppercase tracking-wider">
-            <a href="#" className="hover:text-accent transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-accent transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-accent transition-colors">Cookie Settings</a>
-          </div>
-        </div>
-      </footer>
     </>
   );
 }

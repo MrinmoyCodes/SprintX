@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { FiMenu, FiX, FiShoppingBag } from 'react-icons/fi';
-import { motion, AnimatePresence } from 'framer-motion';
 
-export default function Navbar() {
+export default function Navbar({ cartCount = 0, onNavigateHome, onOpenCart, onOpenListing }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
@@ -16,18 +15,28 @@ export default function Navbar() {
   return (
     <>
       <nav className="fixed top-0 left-0 z-50 w-full border-b border-white/5 bg-[#050505]/40 backdrop-blur-md transition-all duration-300">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-8">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3 md:px-8">
           {/* Logo */}
-          <a href="#" className="flex items-center">
-            <img src="/assets/sprintx_logo.png" alt="SprintX" className="h-10 w-auto object-contain" />
+          <a 
+            href="#" 
+            className="flex items-center"
+            onClick={(e) => {
+              e.preventDefault();
+              if (onNavigateHome) onNavigateHome();
+            }}
+          >
+            <img src="/assets/sprintx_logo.png" alt="SprintX" className="h-20 w-auto object-contain" />
           </a>
 
           {/* Desktop Navigation Links */}
-          <div className="hidden items-center gap-8 md:flex">
+          <div className="hidden items-center gap-8 lg:flex">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
+                onClick={() => {
+                  if (onNavigateHome) onNavigateHome();
+                }}
                 className="text-xs font-semibold uppercase tracking-wider text-grayMuted transition-colors duration-300 hover:text-accent"
               >
                 {link.name}
@@ -36,26 +45,39 @@ export default function Navbar() {
           </div>
 
           {/* CTAs */}
-          <div className="hidden items-center gap-4 md:flex">
-            <button className="relative p-2 text-secondary hover:text-accent transition-colors">
+          <div className="hidden items-center gap-4 lg:flex">
+            <button 
+              onClick={onOpenCart}
+              className="relative p-2 text-secondary hover:text-accent transition-colors"
+            >
               <FiShoppingBag className="h-5 w-5" />
-              <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-[9px] font-black text-primary">
-                0
-              </span>
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-[9px] font-black text-primary">
+                  {cartCount}
+                </span>
+              )}
             </button>
             
-            <a
-              href="#bestsellers"
+            <button
+              onClick={onOpenListing}
               className="relative inline-flex items-center justify-center rounded-full bg-accent px-6 py-2 text-xs font-bold uppercase tracking-wider text-primary shadow-glow transition-all duration-300 hover:scale-105 hover:bg-white hover:text-black hover:shadow-glow-strong"
             >
               Shop Now
-            </a>
+            </button>
           </div>
 
           {/* Mobile Buttons */}
-          <div className="flex items-center gap-4 md:hidden">
-            <button className="p-2 text-secondary hover:text-accent">
+          <div className="flex items-center gap-4 lg:hidden">
+            <button 
+              onClick={onOpenCart}
+              className="relative p-2 text-secondary hover:text-accent"
+            >
               <FiShoppingBag className="h-5 w-5" />
+              {cartCount > 0 && (
+                <span className="absolute top-0 right-0 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-[9px] font-black text-primary">
+                  {cartCount}
+                </span>
+              )}
             </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -67,44 +89,78 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile Drawer */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="fixed top-[65px] left-0 z-40 w-full bg-primary/95 border-b border-white/5 backdrop-blur-lg px-6 py-8 md:hidden"
-          >
-            <div className="flex flex-col gap-6 text-center">
-              {navLinks.map((link, index) => (
-                <motion.a
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.05 }}
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setIsOpen(false)}
-                  className="text-sm font-semibold uppercase tracking-widest text-grayMuted hover:text-accent"
-                >
-                  {link.name}
-                </motion.a>
-              ))}
-              <motion.a
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: navLinks.length * 0.05 }}
-                href="#bestsellers"
-                onClick={() => setIsOpen(false)}
-                className="mx-auto mt-2 w-full max-w-[200px] rounded-full bg-accent py-3 text-center text-xs font-bold uppercase tracking-wider text-primary shadow-glow"
+      {/* Mobile Drawer and Backdrop Overlay */}
+      {/* Dark blur backdrop */}
+      <div
+        onClick={() => setIsOpen(false)}
+        className={`fixed inset-0 z-40 bg-black/60 backdrop-blur-sm transition-opacity duration-300 lg:hidden ${
+          isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+      />
+
+      {/* Right side slide-in drawer */}
+      <div
+        className={`fixed top-0 right-0 z-50 h-screen w-full max-w-[300px] bg-[#090909]/95 border-l border-white/5 backdrop-blur-xl p-8 flex flex-col justify-between shadow-2xl transition-transform duration-300 ease-out lg:hidden ${
+          isOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
+      >
+        <div>
+          {/* Drawer Header */}
+          <div className="flex items-center justify-between border-b border-white/5 pb-4">
+            <a 
+              href="#" 
+              className="flex items-center" 
+              onClick={(e) => {
+                e.preventDefault();
+                setIsOpen(false);
+                if (onNavigateHome) onNavigateHome();
+              }}
+            >
+              <img src="/assets/sprintx_logo.png" alt="SprintX" className="h-16 w-auto object-contain" />
+            </a>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="p-2 text-secondary hover:text-accent focus:outline-none transition-colors"
+            >
+              <FiX className="h-6 w-6" />
+            </button>
+          </div>
+
+          {/* Drawer Links */}
+          <div className="flex flex-col gap-6 py-8">
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={() => {
+                  setIsOpen(false);
+                  if (onNavigateHome) onNavigateHome();
+                }}
+                className="text-sm font-bold uppercase tracking-widest text-grayMuted hover:text-accent transition-colors py-2 border-b border-white/[0.02] block text-left"
               >
-                Shop Now
-              </motion.a>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                {link.name}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* Drawer Footer */}
+        <div className="flex flex-col gap-4 border-t border-white/5 pt-6">
+          <a
+            href="#bestsellers"
+            onClick={() => {
+              setIsOpen(false);
+              if (onNavigateHome) onNavigateHome();
+            }}
+            className="flex items-center justify-center gap-2 rounded-full bg-accent py-3.5 text-center text-xs font-bold uppercase tracking-wider text-primary shadow-glow transition-all duration-300 hover:bg-secondary"
+          >
+            Shop Now
+          </a>
+          <span className="text-[8px] text-grayMuted font-mono text-center block">
+            © SPRINTX INC // V1.0
+          </span>
+        </div>
+      </div>
     </>
   );
 }

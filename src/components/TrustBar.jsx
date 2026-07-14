@@ -34,7 +34,7 @@ export default function TrustBar() {
   };
 
   return (
-    <section className="relative z-10 border-y border-white/5 bg-[#050505] py-8">
+    <section className="relative z-10 border-y border-white/5 bg-[#050505] py-8 trust-bar">
       <div className="mx-auto max-w-7xl px-6 md:px-8">
         <motion.div
           variants={containerVariants}

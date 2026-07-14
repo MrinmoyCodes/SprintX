@@ -6,7 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function BestSellers() {
+export default function BestSellers({ onProductSelect }) {
   const particleContainerRef = useRef(null);
 
   // 1. Generate floating vector particles on Ad Banner load
@@ -99,24 +99,17 @@ export default function BestSellers() {
           <span className="text-[10px] font-black tracking-widest text-accent uppercase mb-4 block">
             CAMPAIGN // SPRINTX ELITE
           </span>
-          <h2 className="text-6xl font-black uppercase leading-none tracking-tight sm:text-8xl lg:text-9xl text-secondary select-none">
-            BUILT FOR<br />
-            <span className="text-accent">CHAMPIONS.</span>
+          <h2 className="text-4xl font-black uppercase leading-none tracking-tight sm:text-6xl text-secondary select-none">
+            ENGINEERED TO OUTRUN <span className="text-accent drop-shadow-[0_0_15px_rgba(124,255,91,0.25)]">LIMITS.</span>
           </h2>
-          <p className="mx-auto mt-6 max-w-md text-sm font-light leading-relaxed text-grayMuted sm:text-base">
-            Every fiber, every groove, every millisecond matters. Explore the science behind the shoes.
+          <p className="mx-auto mt-6 max-w-lg text-xs sm:text-sm font-light leading-relaxed text-grayMuted">
+            SprintX combines advanced composite engineering with bio-mechanically matched nitrogen cushion cores to make your fast, faster.
           </p>
-          <a
-            href="#features"
-            className="group mt-10 inline-flex items-center gap-3 rounded-full bg-secondary px-8 py-4 text-xs font-bold uppercase tracking-wider text-primary shadow-glow transition-all duration-300 hover:bg-accent hover:text-primary hover:shadow-glow-strong"
-          >
-            Discover Technology
-          </a>
         </div>
       </section>
 
-      {/* Loop 9 — Best Seller Section */}
-      <section className="relative z-10 w-full py-24 bg-[#080808]" id="bestsellers">
+      {/* Loop 9 — Best Sellers catalog section */}
+      <section className="relative z-10 w-full bg-[#050505] py-24 md:py-32" id="bestsellers">
         <div className="mx-auto max-w-7xl px-6 md:px-8">
           
           {/* Section Header */}
@@ -139,7 +132,11 @@ export default function BestSellers() {
             {bestSellers.map((item) => (
               <div
                 key={item.id}
-                className="group/item relative flex flex-col border border-white/5 bg-primary rounded-3xl p-5 transition-all duration-500 hover:border-accent/40 hover:bg-accent/[0.01] hover:shadow-[0_15px_35px_rgba(124,255,91,0.1)] hover:-translate-y-1"
+                onClick={() => {
+                  console.log("Bestsellers card clicked, calling onProductSelect with id:", item.id);
+                  if (onProductSelect) onProductSelect(item.id);
+                }}
+                className="group/item relative flex flex-col border border-white/5 bg-primary rounded-3xl p-5 transition-all duration-500 hover:border-accent/40 hover:bg-accent/[0.01] hover:shadow-[0_15px_35px_rgba(124,255,91,0.1)] hover:-translate-y-1 cursor-pointer"
               >
                 
                 {/* Floating Badge */}
@@ -151,19 +148,16 @@ export default function BestSellers() {
                   </span>
                 </div>
 
-                {/* Interactive Product Image (Applies secondary filter on card hover) */}
+                {/* Interactive Product Image (Applies colorway filter by default, zooms on hover) */}
                 <div className="relative h-[180px] w-full flex items-center justify-center mb-6 overflow-hidden select-none">
-                  {/* Base Image */}
+                  {/* Glowing background halo */}
+                  <div className="absolute h-32 w-32 rounded-full bg-accent/5 blur-xl opacity-0 group-hover/item:opacity-100 transition-opacity duration-500" />
+                  
+                  {/* Color-shifted Shoe Image */}
                   <img
                     src="/assets/sprintx_alpha_main.png"
                     alt={item.name}
-                    className="absolute inset-0 h-full w-full object-contain transition-all duration-700 ease-out group-hover/item:opacity-0 group-hover/item:scale-95"
-                  />
-                  {/* Secondary Image Color (Hue-rotated version) */}
-                  <img
-                    src="/assets/sprintx_alpha_main.png"
-                    alt={item.name}
-                    className={`absolute inset-0 h-full w-full object-contain opacity-0 scale-95 transition-all duration-700 ease-out group-hover/item:opacity-100 group-hover/item:scale-105 ${item.filterClass}`}
+                    className={`h-full w-full object-contain transform transition-all duration-700 ease-out group-hover/item:scale-110 group-hover/item:-rotate-3 ${item.filterClass}`}
                   />
                 </div>
 

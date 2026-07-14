@@ -108,13 +108,49 @@ export default function FeatureStory() {
   const lineRefs = [line1Ref, line2Ref, line3Ref, line4Ref, line5Ref, line6Ref];
   const hotspotRefs = [hotspot1Ref, hotspot2Ref, hotspot3Ref, hotspot4Ref, hotspot5Ref, hotspot6Ref];
 
+  // Dynamic container scaling to prevent layout distortion on viewports below 1000px width
+  const [scale, setScale] = useState(1);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isSimpleLayout, setIsSimpleLayout] = useState(false);
+  const wrapperRef = useRef(null);
+
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      const simple = width < 1000;
+      setIsSimpleLayout(simple);
+      setIsMobile(width < 768);
+      
+      if (wrapperRef.current) {
+        const wrapperWidth = wrapperRef.current.offsetWidth;
+        if (!simple) {
+          if (wrapperWidth < 1000) {
+            // Apply scale with safety padding
+            setScale((wrapperWidth - 32) / 1000);
+          } else {
+            setScale(1);
+          }
+        } else {
+          setScale(1);
+        }
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    const mm = gsap.matchMedia();
+
+    // Desktop (1000px and above): Full ScrollTrigger Pinning and animation
+    mm.add("(min-width: 1000px)", () => {
       const scrollTl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
           start: 'top top',
-          end: '+=500%',
+          end: '+=350%',
           scrub: 1,
           pin: true,
           anticipatePin: 1,
@@ -124,14 +160,6 @@ export default function FeatureStory() {
           }
         }
       });
-
-      // Get line lengths
-      const len1 = line1Ref.current?.getTotalLength() || 200;
-      const len2 = line2Ref.current?.getTotalLength() || 200;
-      const len3 = line3Ref.current?.getTotalLength() || 200;
-      const len4 = line4Ref.current?.getTotalLength() || 200;
-      const len5 = line5Ref.current?.getTotalLength() || 200;
-      const len6 = line6Ref.current?.getTotalLength() || 200;
 
       // Set initial values
       gsap.set([line1Ref.current, line2Ref.current, line3Ref.current, line4Ref.current, line5Ref.current, line6Ref.current], {
@@ -146,34 +174,35 @@ export default function FeatureStory() {
       gsap.set(hotspot1Ref.current, { scale: 1.2, opacity: 1 });
       if (line1Ref.current) gsap.set(line1Ref.current, { strokeDashoffset: 0 });
 
-      // Step 1: Reveal 2 (Keep 1 visible, hide on scroll up)
+      // Step animations
       scrollTl.to(line2Ref.current, { strokeDashoffset: 0, duration: 0.8 }, 0.2)
         .to(card2Ref.current, { opacity: 1, duration: 0.4 }, 0.6)
         .to(hotspot2Ref.current, { scale: 1.2, opacity: 1, duration: 0.4 }, 0.6);
 
-      // Step 2: Reveal 3 (Keep 1 and 2 visible, hide on scroll up)
       scrollTl.to(line3Ref.current, { strokeDashoffset: 0, duration: 0.8 }, 1.2)
         .to(card3Ref.current, { opacity: 1, duration: 0.4 }, 1.6)
         .to(hotspot3Ref.current, { scale: 1.2, opacity: 1, duration: 0.4 }, 1.6);
 
-      // Step 3: Reveal 4 (Keep 1, 2, and 3 visible, hide on scroll up)
       scrollTl.to(line4Ref.current, { strokeDashoffset: 0, duration: 0.8 }, 2.2)
         .to(card4Ref.current, { opacity: 1, duration: 0.4 }, 2.6)
         .to(hotspot4Ref.current, { scale: 1.2, opacity: 1, duration: 0.4 }, 2.6);
 
-      // Step 4: Reveal 5 (Keep 1, 2, 3, and 4 visible, hide on scroll up)
       scrollTl.to(line5Ref.current, { strokeDashoffset: 0, duration: 0.8 }, 3.2)
         .to(card5Ref.current, { opacity: 1, duration: 0.4 }, 3.6)
         .to(hotspot5Ref.current, { scale: 1.2, opacity: 1, duration: 0.4 }, 3.6);
 
-      // Step 5: Reveal 6 (Keep 1, 2, 3, 4, and 5 visible, hide on scroll up)
       scrollTl.to(line6Ref.current, { strokeDashoffset: 0, duration: 0.8 }, 4.2)
         .to(card6Ref.current, { opacity: 1, duration: 0.4 }, 4.6)
         .to(hotspot6Ref.current, { scale: 1.2, opacity: 1, duration: 0.4 }, 4.6);
+    });
 
-    }, containerRef);
+    // Below 1000px: Simple static layout
+    mm.add("(max-width: 999px)", () => {
+      // Revert active index or set default
+      setActiveIndex(0);
+    });
 
-    return () => ctx.revert();
+    return () => mm.revert();
   }, []);
 
   // Positions inside the 1000x600 coordinate box
@@ -209,7 +238,7 @@ export default function FeatureStory() {
   return (
     <section 
       ref={containerRef} 
-      className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-[#080808] py-20 px-4 md:px-8"
+      className="relative flex min-h-[80vh] lg:min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-[#080808] py-12 md:py-16 px-4 md:px-8"
       id="features"
     >
       {/* Dynamic Background Radial Glow */}
@@ -236,8 +265,28 @@ export default function FeatureStory() {
         </p>
       </div>
 
-      {/* --- MAIN 1000x600 DESKTOP VIEWPORT --- */}
-      <div className="relative w-full max-w-[1000px] aspect-[1000/600] border border-white/5 bg-[#050505]/40 backdrop-blur-sm rounded-3xl shadow-[inset_0_0_40px_rgba(255,255,255,0.02)] flex items-center justify-center overflow-hidden md:block">
+      {!isSimpleLayout ? (
+        <div 
+          ref={wrapperRef} 
+          className="w-full flex items-center justify-center overflow-hidden relative"
+          style={{ 
+            height: `${600 * scale}px` 
+          }}
+        >
+        <div 
+          style={!isMobile ? { 
+            transform: `translate(-50%, -50%) scale(${scale})`, 
+            transformOrigin: 'center center',
+            width: '1000px',
+            height: '600px',
+            position: 'absolute',
+            left: '50%',
+            top: '50%'
+          } : {}}
+          className={`relative border border-white/5 bg-[#050505]/40 backdrop-blur-sm rounded-3xl shadow-[inset_0_0_40px_rgba(255,255,255,0.02)] flex items-center justify-center overflow-hidden md:block ${
+            isMobile ? 'w-full aspect-[1000/600]' : 'w-[1000px] h-[600px] flex-shrink-0'
+          }`}
+        >
         
         {/* Centered Holographic Shoe Visualizer */}
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:left-[320px] md:top-[120px] md:translate-x-0 md:translate-y-0 w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] md:w-[360px] md:h-[360px] flex items-center justify-center pointer-events-none select-none z-20">
@@ -395,32 +444,53 @@ export default function FeatureStory() {
           })}
         </div>
 
-      </div>
-
-      {/* --- DYNAMIC MOBILE DESCRIPTION CARD --- */}
-      <div className="block md:hidden w-full max-w-[480px] mt-8">
-        <div className="border-2 rounded-2xl bg-[#090909]/95 p-5 border-accent shadow-glow bg-accent/[0.01] select-none">
-          <div className="flex items-center gap-4">
-            <div className="flex-shrink-0">
-              {features[activeIndex].icon(true)}
-            </div>
-            <div>
-              <span className="text-[9px] font-black tracking-widest text-accent uppercase font-mono mb-1 block">
-                {features[activeIndex].tag}
-              </span>
-              <h3 className="text-base font-black uppercase text-secondary mb-1">
-                {features[activeIndex].title}
-              </h3>
-              <p className="text-xs font-light leading-relaxed text-grayMuted">
-                {features[activeIndex].desc}
-              </p>
-            </div>
-          </div>
         </div>
       </div>
+      ) : (
+        <div className="w-full max-w-4xl px-4 mt-4 flex flex-col items-center gap-10">
+          {/* Centered Holographic Shoe Visualizer */}
+          <div className="relative w-[280px] h-[280px] sm:w-[360px] sm:h-[360px] flex items-center justify-center pointer-events-none select-none">
+            {/* Radar Circles */}
+            <div className="absolute h-64 w-64 rounded-full border border-accent/[0.04] flex items-center justify-center animate-[spin_40s_linear_infinite]">
+              <div className="h-48 w-48 rounded-full border border-dashed border-accent/[0.08] flex items-center justify-center animate-[spin_20s_linear_infinite_reverse]" />
+            </div>
+            {/* Shoe Image */}
+            <img 
+              src="/assets/sprintx_alpha_main.png" 
+              alt="SprintX Performance" 
+              className="h-full w-full object-contain filter drop-shadow-[0_10px_25px_rgba(0,0,0,0.6)] z-10"
+            />
+          </div>
+
+          {/* 6 Features Static Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
+            {features.map((feature, idx) => (
+              <div
+                key={idx}
+                className="border border-white/10 rounded-2xl bg-[#090909]/60 backdrop-blur-md p-5 flex items-center gap-4 transition-all duration-300 hover:border-accent/30 hover:bg-[#0c0c0c]/80 select-none"
+              >
+                <div className="flex-shrink-0">
+                  {feature.icon(true)}
+                </div>
+                <div className="text-left">
+                  <span className="text-[8px] font-black tracking-widest text-accent uppercase font-mono block mb-1">
+                    {feature.tag}
+                  </span>
+                  <h4 className="text-xs font-black uppercase text-secondary mb-1">
+                    {feature.title}
+                  </h4>
+                  <p className="text-[10px] font-light leading-relaxed text-grayMuted">
+                    {feature.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* --- BOTTOM SYSTEM FEATURES BAR --- */}
-      <div className="w-full max-w-[1000px] grid grid-cols-2 md:grid-cols-4 gap-6 mt-12 pt-8 border-t border-white/5 pointer-events-none select-none z-10">
+      <div className="w-full max-w-[1000px] grid grid-cols-2 md:grid-cols-4 gap-6 mt-6 md:mt-12 pt-6 md:pt-8 border-t border-white/5 pointer-events-none select-none z-10">
         <div className="flex items-center gap-3">
           <div className="h-8 w-8 rounded-full bg-accent/10 flex items-center justify-center text-accent text-sm filter drop-shadow-[0_0_4px_rgba(124,255,91,0.2)]">
             <FiZap />

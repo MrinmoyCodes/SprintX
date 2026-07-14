@@ -1,15 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { EffectCoverflow, Pagination, Navigation } from 'swiper/modules';
+import { EffectCoverflow, Navigation } from 'swiper/modules';
 import { FiStar, FiShoppingBag, FiArrowLeft, FiArrowRight, FiCpu } from 'react-icons/fi';
 
 // Swiper styles
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
-import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
-export default function ProductShowcase() {
+export default function ProductShowcase({ onProductSelect }) {
   // Track active slide index to update global section background
   const [activeSlide, setActiveSlide] = useState(0);
 
@@ -133,7 +132,7 @@ export default function ProductShowcase() {
 
   return (
     <section 
-      className="relative z-10 w-full py-24 transition-colors duration-1000 select-none bg-[#050505]"
+      className="overcome-limits relative z-10 w-full py-24 transition-colors duration-1000 select-none bg-[#050505]"
       style={{
         background: `radial-gradient(circle at 50% 50%, ${getSectionBg()} 0%, #050505 80%)`
       }}
@@ -145,12 +144,12 @@ export default function ProductShowcase() {
       <div className="mx-auto max-w-7xl px-6 md:px-8 relative z-20">
         
         {/* Section Header */}
-        <div className="text-center mb-16 pointer-events-none">
+        <div className="text-center mb-16 pointer-events-none section-heading">
           <span className="text-[10px] font-black tracking-widest text-accent uppercase">
             EXPLORE THE RANGE
           </span>
           <h2 className="mt-4 text-4xl sm:text-5xl md:text-6xl font-black uppercase leading-none tracking-tight text-secondary">
-            SELECT YOUR <span className="text-accent">WEAPON</span>
+            SELECT YOUR <span className="text-accent">SHOES</span>
           </h2>
           <p className="mx-auto mt-4 max-w-md text-sm font-light leading-relaxed text-grayMuted">
             Each model is custom engineered for specific running styles. Find your fit and crush your limits.
@@ -177,7 +176,7 @@ export default function ProductShowcase() {
           </div>
 
           <Swiper
-            modules={[EffectCoverflow, Pagination, Navigation]}
+            modules={[EffectCoverflow, Navigation]}
             effect="coverflow"
             grabCursor={true}
             centeredSlides={true}
@@ -190,12 +189,12 @@ export default function ProductShowcase() {
               modifier: 1,
               slideShadows: false,
             }}
-            pagination={{ clickable: true, dynamicBullets: true }}
             navigation={{
               prevEl: prevBtnRef.current,
               nextEl: nextBtnRef.current,
             }}
             loop={true}
+            loopedSlides={3}
             watchSlidesProgress={true}
             onSwiper={setSwiperInstance}
             onSlideChange={(swiper) => setActiveSlide(swiper.realIndex % 3)}
@@ -207,17 +206,28 @@ export default function ProductShowcase() {
 
               return (
                 <SwiperSlide key={`${shoe.id}-${shoeIdx}`} className="px-4 py-8 !w-[290px] sm:!w-[340px]">
-                  <div className={`group/card relative flex flex-col border-2 rounded-3xl p-6 transition-all duration-700 bg-[#090909]/60 backdrop-blur-xl w-full mx-auto ${
-                    isCurrentActive
-                      ? 'border-accent/30 shadow-[0_15px_40px_rgba(0,0,0,0.65),0_0_30px_rgba(124,255,91,0.15)]'
-                      : 'border-white/5 opacity-50 scale-95'
-                  }`}>
+                  <div 
+                    onClick={(e) => {
+                      console.log("ProductShowcase slide clicked, event target:", e.target);
+                      if (e.target.closest('button')) {
+                        console.log("Ignored showcase card click because button was clicked");
+                        return;
+                      }
+                      console.log("Calling onProductSelect with id:", shoe.id);
+                      if (onProductSelect) onProductSelect(shoe.id);
+                    }}
+                    className={`group/card relative flex flex-col border-2 rounded-3xl p-6 transition-all duration-700 bg-[#090909]/60 backdrop-blur-xl w-full mx-auto cursor-pointer ${
+                      isCurrentActive
+                        ? 'border-accent/30 shadow-[0_15px_40px_rgba(0,0,0,0.65),0_0_30px_rgba(124,255,91,0.15)]'
+                        : 'border-white/5 opacity-50 scale-95'
+                    }`}
+                  >
                     
                     {/* Floating Product Code Header */}
                     <div className="flex justify-between items-center text-[10px] font-black tracking-widest text-white/30 font-mono mb-6">
                       <span className="flex items-center gap-1.5">
                         <span className={`h-1.5 w-1.5 rounded-full ${isCurrentActive ? 'bg-accent animate-ping' : 'bg-white/20'}`} />
-                        MODEL_SERIES // 0{(shoeIdx % 3) + 1}
+                        MODEL SERIES // 0{(shoeIdx % 3) + 1}
                       </span>
                       <span className="flex items-center gap-1.5 border border-white/5 px-2 py-0.5 rounded-full bg-white/[0.01]">
                         <FiStar className="fill-accent text-accent h-3 w-3" />
@@ -255,7 +265,7 @@ export default function ProductShowcase() {
                     {/* Live Tech Specs Telemetry Bars */}
                     <div className="flex flex-col gap-3.5 mb-6">
                       <h4 className="text-[9px] font-black tracking-widest text-white/30 uppercase font-mono flex items-center gap-1">
-                        <FiCpu className="text-xs" /> PERFORMANCE_SPECIFICATIONS
+                        <FiCpu className="text-xs" /> PERFORMANCE SPECIFICATIONS
                       </h4>
                       <div className="grid grid-cols-2 gap-x-4 gap-y-3">
                         {shoe.specs.map((spec, sIdx) => (
@@ -327,10 +337,16 @@ export default function ProductShowcase() {
                       </div>
 
                       {/* Buy CTA */}
-                      <button className="group/btn relative flex h-10 w-10 items-center justify-center rounded-full bg-accent text-primary shadow-glow transition-all duration-500 hover:w-28 hover:bg-secondary">
+                      <button 
+                        onClick={() => {
+                          console.log("ProductShowcase CTA button clicked, calling onProductSelect with id:", shoe.id);
+                          if (onProductSelect) onProductSelect(shoe.id);
+                        }}
+                        className="group/btn relative flex h-10 w-10 items-center justify-center rounded-full bg-accent text-primary shadow-glow transition-all duration-500 hover:w-28 hover:bg-secondary"
+                      >
                         <FiShoppingBag className="h-4 w-4" />
                         <span className="absolute overflow-hidden whitespace-nowrap opacity-0 group-hover/btn:opacity-100 group-hover/btn:relative group-hover/btn:ml-1 text-[10px] font-bold uppercase tracking-widest transition-opacity duration-300">
-                          Add to cart
+                          Configure
                         </span>
                       </button>
 
@@ -341,6 +357,16 @@ export default function ProductShowcase() {
               );
             })}
           </Swiper>
+        </div>
+
+        {/* View All Products CTA */}
+        <div className="flex justify-center mt-12 view-all-cta">
+          <a
+            href="#bestsellers"
+            className="group relative inline-flex items-center justify-center rounded-full border-2 border-accent px-8 py-3.5 text-xs font-bold uppercase tracking-wider text-secondary transition-all duration-300 hover:bg-accent hover:text-primary hover:shadow-glow hover:scale-105"
+          >
+            View All Products
+          </a>
         </div>
 
       </div>
